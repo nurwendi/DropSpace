@@ -1,0 +1,570 @@
+:root {
+    --bg-color: #0f172a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --accent-primary: #8b5cf6;
+    --accent-secondary: #ec4899;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(15, 23, 42, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dynamic Background */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/* Main App Container (Full Screen) */
+.app-container {
+    width: 95%;
+    max-width: 1600px;
+    min-height: 90vh;
+    padding: 2rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* Glassmorphism */
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+/* Login Card (Compact, Centered) */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 3rem 2rem;
+    /* Centering */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Strong Glassmorphism */
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.files-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+    /* Scrollable list */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.app-logo {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.5));
+}
+
+header h1.app-title {
+    font-size: 3rem;
+    font-weight: 600;
+    background: linear-gradient(to right, #c084fc, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: default;
+    transition: letter-spacing 0.3s ease;
+}
+
+.logo-container:hover h1.app-title {
+    letter-spacing: 2px;
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.upload-section {
+    margin-bottom: 3rem;
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, var(--accent-secondary), #db2777);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
+}
+
+.action-btn.primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3);
+}
+
+/* Specific styling for the Add Note button */
+#add-note-btn {
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    /* Fully rounded/Pill shape */
+    background: linear-gradient(90deg, var(--accent-secondary), #db2777, #8b5cf6);
+    background-size: 200% 100%;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+}
+
+#add-note-btn:hover {
+    background-position: 100% 0;
+    /* Shifts gradient for color change animation */
+    transform: translateY(-2px) scale(1.05);
+    /* Slight grow */
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+    /* Shadow changes color too */
+}
+
+#add-note-btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+#add-note-btn::after {
+    /* Remove previous overlay to rely on background-position animation */
+    content: none;
+}
+
+.status-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: #fca5a5;
+    padding: 0.2rem 0.8rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: white;
+}
+
+.drop-zone {
+    border: 2px dashed var(--glass-border);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.drop-zone:hover,
+.drop-zone.dragover {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+.icon-cloud {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.drop-zone h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.drop-zone p {
+    color: var(--text-secondary);
+}
+
+.status-bar {
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-secondary), #8b5cf6);
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+    border-radius: 10px;
+}
+
+/* Flying Plane Animation */
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    /* Position at the tip */
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='none'%3E%3Cpath d='M2 12h2l2-3v-3l4-2l4 8l5-2v2l-5 4v2l-2 2v-4l-5 4l-4-2l4-8h-5z'/%3E%3Cpath d='M22 2L11 13' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M22 2L15 22L11 13L2 9L22 2Z' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    z-index: 2;
+}
+
+/* Cloud/Wind Trail Effect */
+.progress-fill::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 20px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+    filter: blur(4px);
+}
+
+/* Notes Section */
+.notes-section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 50vh;
+    /* Limit height */
+    overflow: hidden;
+}
+
+.note-input-container {
+    display: flex;
+    gap: 1rem;
+}
+
+#note-input {
+    flex: 1;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.8rem;
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    resize: none;
+    outline: none;
+    transition: all 0.2s;
+}
+
+#note-input:focus {
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.note-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.note-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-2px);
+}
+
+.note-content {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.note-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.note-btn {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.note-btn.copy {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.note-btn.delete {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.note-btn:hover {
+    opacity: 0.8;
+}
+
+/* File List Styles */
+.files-section {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.refresh-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 100px;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 100px;
+    padding: 1rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.file-name {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-icon {
+    color: var(--accent-primary);
+}
+
+.file-size {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.file-action {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.download-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--accent-primary);
+    color: white;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.download-link:hover {
+    background: #7c3aed;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.delete-btn:hover {
+    background: rgba(220, 38, 38, 0.4);
+    color: white;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .file-list-header,
+    .file-item {
+        grid-template-columns: 1fr 80px;
+        gap: 0.5rem;
+    }
+
+    .file-size {
+        display: none;
+    }
+
+    .file-list-header span:nth-child(2) {
+        display: none;
+    }
+}

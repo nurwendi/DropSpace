@@ -1,0 +1,19 @@
+@echo off
+echo Initializing Git...
+git init
+
+echo Adding files...
+git add .
+
+echo Committing files...
+git commit -m "DropSpace v1.0 Update"
+
+echo Setting branch to main...
+git branch -M main
+
+echo Configuring remote...
+git remote remove origin 2>nul
+git remote add origin https://github.com/nurwendi/DropSpace.git
+
+echo Pushing to GitHub...
+git push -u origin main
