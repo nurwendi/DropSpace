@@ -24,26 +24,32 @@ A simple, secure, and modern file sharing application built with Node.js. Featur
 
 Follow these steps to deploy on a Linux server (Ubuntu/Debian recommended).
 
-### 1. Install Node.js
-If you haven't installed Node.js yet:
+### 1. Install Node.js & Git
+If you haven't installed Node.js or Git yet:
 ```bash
 # Update package list
 sudo apt update
 
-# Install Node.js (via NodeSource for latest versions)
+# Install Node.js (via NodeSource for latest versions) and Git
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs git
 
 # Verify installation
 node -v
-npm -v
+git --version
 ```
 
-### 2. Copy/Clone Application
-Upload the project files to your server (e.g., via FTP or Git) to a folder like `/opt/file-sharing` or your home directory.
+### 2. Clone from GitHub
+Download the source code directly from the repository:
 ```bash
-# Example: navigating to the folder
-cd /path/to/file-sharing
+# Navigate to your desired folder (e.g., /opt)
+cd /opt
+
+# Clone the repository
+sudo git clone https://github.com/nurwendi/DropSpace.git
+
+# Enter the project directory
+cd DropSpace
 ```
 
 ### 3. Install Dependencies
