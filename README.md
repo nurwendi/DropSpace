@@ -20,6 +20,13 @@ A simple, secure, and modern file sharing application built with Node.js. Featur
 
 ---
 
+## ⚡ One-Line Auto Installation
+Run this command on your Ubuntu/Debian server to install automatically:
+
+```bash
+curl -sL https://raw.githubusercontent.com/nurwendi/DropSpace/main/install.sh | bash
+```
+
 ## 🐧 Linux Installation Guide
 
 Follow these steps to deploy on a Linux server (Ubuntu/Debian recommended).
