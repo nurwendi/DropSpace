@@ -51,7 +51,7 @@ pm2 startup | tail -n 1 | bash 2>/dev/null || true
 
 # 6. Finalize
 IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
-PORT=3010
+PORT=2000
 
 echo -e "${GREEN}==========================================${NC}"
 echo -e "${GREEN}Installation Complete!${NC}"

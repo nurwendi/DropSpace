@@ -6,7 +6,7 @@ const path = require('path');
 const session = require('express-session');
 
 const app = express();
-const PORT = process.env.PORT || 3010;
+const PORT = process.env.PORT || 2000;
 
 // Admin Credentials (HARDCODED FOR SIMPLICITY)
 const ADMIN_USERNAME = 'admin';

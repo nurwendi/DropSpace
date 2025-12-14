@@ -66,9 +66,9 @@ npm install
 ```
 
 ### 4. Configure Port (Optional)
-By default, the app runs on port **3010**. You can change this in `server.js` file if needed.
+By default, the app runs on port **2000**. You can change this in `server.js` file if needed.
 ```javascript
-const PORT = 3010; // Change this value
+const PORT = 2000; // Change this value
 ```
 
 ### 5. Run the Application
@@ -92,7 +92,7 @@ pm2 save
 pm2 startup
 ```
 
-The application is now running at `http://YOUR_SERVER_IP:3010`.
+The application is now running at `http://YOUR_SERVER_IP:2000`.
 
 ## 🗑️ Uninstall
 
