@@ -6,7 +6,7 @@ const path = require('path');
 const session = require('express-session');
 
 const app = express();
-const PORT = 3010;
+const PORT = process.env.PORT || 3010;
 
 // Admin Credentials (HARDCODED FOR SIMPLICITY)
 const ADMIN_USERNAME = 'admin';
@@ -28,15 +28,10 @@ const requireAuth = (req, res, next) => {
     if (req.session.authenticated) {
         next();
     } else {
-        // If API request, return 401
-        if (req.path.startsWith('/upload') || req.path.startsWith('/files')) {
-            return res.status(401).json({ error: 'Unauthorized' });
-        }
-        // If browser request to root, redirect to login
         if (req.path === '/') {
             return res.redirect('/login.html');
         }
-        next();
+        return res.status(401).json({ error: 'Unauthorized' });
     }
 };
 
@@ -187,33 +182,48 @@ function saveClipboard(data) {
 }
 
 app.get('/notes', requireAuth, (req, res) => {
-    res.json(getClipboard());
+    try {
+        res.json(getClipboard());
+    } catch (e) {
+        console.error('Error getting notes:', e);
+        res.status(500).json({ error: 'Failed to retrieve notes' });
+    }
 });
 
 app.post('/notes', requireAuth, (req, res) => {
     const { content } = req.body;
     if (!content) return res.status(400).json({ error: 'Content required' });
 
-    const clips = getClipboard();
-    const newClip = {
-        id: Date.now().toString(), // Simple ID
-        content,
-        createdAt: Date.now()
-    };
+    try {
+        const clips = getClipboard();
+        const newClip = {
+            id: Date.now().toString(), // Simple ID
+            content,
+            createdAt: Date.now()
+        };
 
-    // Add to top
-    clips.unshift(newClip);
-    saveClipboard(clips);
+        // Add to top
+        clips.unshift(newClip);
+        saveClipboard(clips);
 
-    res.json(newClip);
+        res.json(newClip);
+    } catch (e) {
+        console.error('Error saving note:', e);
+        res.status(500).json({ error: 'Failed to save note' });
+    }
 });
 
 app.delete('/notes/:id', requireAuth, (req, res) => {
     const { id } = req.params;
-    let clips = getClipboard();
-    clips = clips.filter(c => c.id !== id);
-    saveClipboard(clips);
-    res.json({ success: true });
+    try {
+        let clips = getClipboard();
+        clips = clips.filter(c => c.id !== id);
+        saveClipboard(clips);
+        res.json({ success: true });
+    } catch (e) {
+        console.error('Error deleting note:', e);
+        res.status(500).json({ error: 'Failed to delete note' });
+    }
 });
 
 app.listen(PORT, () => {
