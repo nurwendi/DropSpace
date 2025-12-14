@@ -35,11 +35,11 @@ Follow these steps to deploy on a Linux server (Ubuntu/Debian recommended).
 If you haven't installed Node.js or Git yet:
 ```bash
 # Update package list
-sudo apt update
+apt update
 
 # Install Node.js (via NodeSource for latest versions) and Git
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs git
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt-get install -y nodejs git
 
 # Verify installation
 node -v
@@ -53,7 +53,7 @@ Download the source code directly from the repository:
 cd /opt
 
 # Clone the repository
-sudo git clone https://github.com/nurwendi/DropSpace.git
+git clone https://github.com/nurwendi/DropSpace.git
 
 # Enter the project directory
 cd DropSpace
@@ -82,7 +82,7 @@ For a production server, use **PM2** to keep the app running in the background a
 
 ```bash
 # Install PM2 globally
-sudo npm install -g pm2
+npm install -g pm2
 
 # Start the app
 pm2 start server.js --name "dropspace"
