@@ -85,7 +85,7 @@ For a production server, use **PM2** to keep the app running in the background a
 sudo npm install -g pm2
 
 # Start the app
-pm2 start server.js --name "file-sharing"
+pm2 start server.js --name "dropspace"
 
 # Save the process list to restart on reboot
 pm2 save
@@ -93,6 +93,18 @@ pm2 startup
 ```
 
 The application is now running at `http://YOUR_SERVER_IP:3010`.
+
+## 🗑️ Uninstall
+
+To remove the application (if installed via script):
+
+```bash
+pm2 stop dropspace
+pm2 delete dropspace
+pm2 save
+cd ..
+rm -rf DropSpace
+```
 
 ---
 
